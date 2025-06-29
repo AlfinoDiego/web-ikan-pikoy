@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diego's Aquarium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(to bottom, #005f99, #001f3f);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      position: relative;
+    }
+
+    header {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .about {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    .socials {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .socials a img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+      transition: 0.2s;
+    }
+
+    .socials a img:hover {
+      transform: scale(1.2);
+    }
+
+    .fish {
+      position: absolute;
+      width: 60px;
+      height: auto;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>diego's website</header>
+  <div class="about">about me: pengembang bot & web, pecinta javascript</div>
+
+  <div class="socials">
+    <a href="https://wa.me/6281585498709" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+    </a>
+    <a href="https://www.instagram.com/dieegooo.al" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" />
+    </a>
+  </div>
+
+  <!-- Container ikan -->
+  <div id="aquarium"></div>
+
+  <script>
+    const fishImages = [
+      "https://pngimg.com/uploads/fish/fish_PNG25175.png",
+      "https://pngimg.com/uploads/fish/fish_PNG25200.png",
+      "https://pngimg.com/uploads/fish/fish_PNG25212.png"
+    ];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFish() {
+      const fish = document.createElement("img");
+      fish.src = fishImages[Math.floor(Math.random() * fishImages.length)];
+      fish.className = "fish";
+
+      const size = random(40, 70);
+      fish.style.width = size + "px";
+      fish.style.top = random(0, window.innerHeight - size) + "px";
+      fish.style.left = random(0, window.innerWidth - size) + "px";
+
+      document.getElementById("aquarium").appendChild(fish);
+
+      moveFish(fish);
+    }
+
+    function moveFish(fish) {
+      const duration = random(8, 20) * 1000;
+      const newX = random(0, window.innerWidth - 60);
+      const newY = random(0, window.innerHeight - 60);
+
+      const flip = parseFloat(fish.style.left) < newX ? "scaleX(1)" : "scaleX(-1)";
+      fish.style.transition = `all ${duration}ms linear`;
+      fish.style.transform = flip;
+      fish.style.left = newX + "px";
+      fish.style.top = newY + "px";
+
+      setTimeout(() => moveFish(fish), duration);
+    }
+
+    // Buat 8 ikan
+    for (let i = 0; i < 67; i++) {
+      createFish();
+    }
+  </script>
+
+</body>
+</html>
